@@ -1,0 +1,64 @@
+---
+title: "Distribution_for_three_pop_GW"
+aurthor: "Yuting Qiu"
+Date: "2019/8/29"
+output: html_notebook
+---
+
+# DRIL38 (18GR)
+Ki3: 1.9139
+Oh7B: 24.9998
+
+# DRIL38 (19GR)
+Ki3: 189.09
+Oh7B: 516.25
+
+# DRIL58 (19GW)
+NC262: 173.86
+Oh7B: 537.32
+
+# DRIL68 (19GY)
+NC304: 165.23
+Oh7B: 491.63
+
+```{r}
+library(readxl)
+X19GR <- read_excel("C:/Users/yutingq2/Desktop/1819GossWilt/1.5Distribution/LsMeans_for_Dis.xlsx", sheet = "X19GR")
+X19GW <- read_excel("C:/Users/yutingq2/Desktop/1819GossWilt/1.5Distribution/LsMeans_for_Dis.xlsx", sheet = "X19GW")
+X19GY <- read_excel("C:/Users/yutingq2/Desktop/1819GossWilt/1.5Distribution/LsMeans_for_Dis.xlsx", sheet = "X19GY")
+```
+
+
+MAKE DISTRIBUTIONS
+use the dataset without check lines
+the dont vary much
+```{r}
+library(readxl)
+X18GR_dis <- read_excel("C:/Users/yutingq2/Desktop/1819GossWilt/1.5Distribution/LsMeans_1819GW.xlsx", sheet = "X18GR")
+X19GR_dis <- read_excel("C:/Users/yutingq2/Desktop/1819GossWilt/1.5Distribution/LsMeans_1819GW.xlsx", sheet = "X19GR")
+X19Gw_dis <- read_excel("C:/Users/yutingq2/Desktop/1819GossWilt/1.5Distribution/LsMeans_1819GW.xlsx", sheet = "X19GW_2envir")
+X19GY_dis <- read_excel("C:/Users/yutingq2/Desktop/1819GossWilt/1.5Distribution/LsMeans_1819GW.xlsx", sheet = "X19GY_2envir")
+```
+
+
+```{r}
+pdf(file ='distribution_GW1819_Aug30.pdf', width = 17.5, height = 6, paper = "USr")
+attach(mtcars)
+layout(matrix(c(1,1,2,2,3,3,4,4),nrow=2, byrow=TRUE))
+layout.show(n=4)
+
+hist(X18GR_dis$Estimate, xlab = "GW LSMeans", main= "DRIL38 at 2018 CFAR300", col = "#D55E00", xlim=c(0, 50), breaks = 15, ylim=c(0,65))
+abline(v=c(1.9139,24.9998), lwd=c(2.5,2.5),lty=c(2,1))# second one is Oh7B
+
+hist(X19GR_dis$Estimate, xlab = "GW LSMeans", main= "DRIL38 at 2019 CFAR200", col = "#D55E00")
+abline(v=c(189.09,516.25), lwd=c(2.5,2.5),lty=c(2,1))
+
+hist(X19Gw_dis$Estimate, xlab = "GW LSMeans", main = "DRIL58 at 2019 Combined", col = "#D55E00", xlim = c(100,700), ylim = c(0,30))
+abline(v=c(173.86,537.32), lwd=c(2.5,2.5),lty=c(2,1))
+
+hist(X19GY_dis$Estimate, xlab = "GW LSMeans", main = "DRIL68 at 2019 Combined", col = "#D55E00", xlim = c(100,700), ylim = c(0,45))
+abline(v=c(165.23,491.63), lwd=c(2.5,2.5),lty=c(2,1))
+
+dev.off()
+```
+
